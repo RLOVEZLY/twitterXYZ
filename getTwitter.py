@@ -41,31 +41,78 @@ fe = open('./emotionalTweets.txt', 'w+')
 countE = 0
 
 
+
 for i in rationalThinker:
 
-	fr.write(i)
-	fr.write('\n')
+	#fr.write(i)
+	#fr.write('\n')
+	try:
+		iterator = twitter_tl.statuses.user_timeline(screen_name=i, count = 150)
+		maxidRList = []
+		for tweet in iterator:
+			countR = countR + 1
+			maxidRList.append (long(json.dumps(tweet['id']))-1)
+			#print json.dumps(tweet['text'])
+			fr.write(json.dumps(tweet['text']))
+			fr.write('\n')
 
-	iterator = twitter_tl.statuses.user_timeline(screen_name=i, count = 150)
+		endR = False
+		times = 19
+		while not endR:
+			maxidR = min(maxidRList)
+			iterator = twitter_tl.statuses.user_timeline(screen_name=i, count = 150, max_id = maxidR)
+			if len(iterator) == 0:
+				endR = True
 
-	for tweet in iterator:
-		countR = countR + 1
-		print json.dumps(tweet['text'])
-		fr.write(json.dumps(tweet['text']))
-		fr.write('\n')
+			for tweet in iterator:
+				countR = countR + 1
+				maxidRList.append(long(json.dumps(tweet['id']))-1)
+				#print json.dumps(tweet['text'])
+				fr.write(json.dumps(tweet['text']))
+				fr.write('\n')
+
+			times = times - 1
+			if times == 0:
+				break
+
+	except:
+		print "Exceed Limit"
+print countR
+
 
 for i in emotionalThinker:
 
-	fe.write(i)
-	fe.write('\n')
+	#fe.write(i)
+	#fe.write('\n')
+	try:
+		iterator1 = twitter_tl.statuses.user_timeline(screen_name=i, count = 150)
+		maxidEList = []
+		for tweet in iterator1:
+			countE = countE + 1
+			maxidEList.append(long(json.dumps(tweet['id']))-1)
+			#print json.dumps(tweet['text'])
+			fe.write(json.dumps(tweet['text']))
+			fe.write('\n')
 
-	iterator1 = twitter_tl.statuses.user_timeline(screen_name=i, count = 150)
+		endE = False
+		times = 19
+		while not endE:
+			maxidE = min(maxidEList)
+			iterator1 = twitter_tl.statuses.user_timeline(screen_name=i, count = 150, max_id = maxidE)
+			if len(iterator) == 0:
+				endE = True
 
-	for tweet in iterator1:
-		countE = countE + 1
-		print json.dumps(tweet['text'])
-		fe.write(json.dumps(tweet['text']))
-		fe.write('\n')
+			for tweet in iterator1:
+				countE = countE + 1
+				maxidEList.append(long(json.dumps(tweet['id']))-1)
+				#print json.dumps(tweet['text'])
+				fe.write(json.dumps(tweet['text']))
+				fe.write('\n')
+			times = times - 1
+			if times == 0:
+				break
+	except:
+		print "except limit"
 
 
 print countR
