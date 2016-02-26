@@ -7,11 +7,18 @@ except ImportError:
 # Import the necessary methods from "twitter" library
 from twitter import *
 import sys
+
 # Variables that contains the user credentials to access Twitter API 
-ACCESS_TOKEN = '335637907-hO5rjVir6XVeo7adCKqZxAuQGMrQbOwG76hbvapO'
-ACCESS_SECRET = '7VvAVR5M1nOpVKdsj6Zrwv78hXpPXBbE62OKE1JTcBtZq'
-CONSUMER_KEY = '4mEWAvfATSJfmyAGGSVMdHqAP'
-CONSUMER_SECRET = 'keRznRfKfup77SA4KFceQCzK9KnrWHysBf50LKxEWeIKS9R0sE'
+#ACCESS_TOKEN = '335637907-hO5rjVir6XVeo7adCKqZxAuQGMrQbOwG76hbvapO'
+#ACCESS_SECRET = '7VvAVR5M1nOpVKdsj6Zrwv78hXpPXBbE62OKE1JTcBtZq'
+#CONSUMER_KEY = '4mEWAvfATSJfmyAGGSVMdHqAP'
+#CONSUMER_SECRET = 'keRznRfKfup77SA4KFceQCzK9KnrWHysBf50LKxEWeIKS9R0sE'
+
+#backup app....
+ACCESS_TOKEN = '703279936363171840-3LCAnbkLSOXuQQE6B6vG2PmEieVyOtc'
+ACCESS_SECRET = 'Y9tRmaNJQ0xe8uIODloQqooqZVwjrRuiX2b3chI2amnde'
+CONSUMER_KEY = 'vIzVbWs1CEpEQs26USicP4NWj'
+CONSUMER_SECRET = '1q6DdAHhHtk0nKmIswW8MRxnut0N2afIUI9RChMNiMNBhFlN1b'
 
 oauth = OAuth(ACCESS_TOKEN, ACCESS_SECRET, CONSUMER_KEY, CONSUMER_SECRET)
 
@@ -39,8 +46,6 @@ countR = 0
 
 fe = open('./emotionalTweets.txt', 'w+')
 countE = 0
-
-
 
 for i in rationalThinker:
 
@@ -80,6 +85,7 @@ for i in rationalThinker:
 print countR
 
 
+
 for i in emotionalThinker:
 
 	#fe.write(i)
@@ -99,7 +105,7 @@ for i in emotionalThinker:
 		while not endE:
 			maxidE = min(maxidEList)
 			iterator1 = twitter_tl.statuses.user_timeline(screen_name=i, count = 150, max_id = maxidE)
-			if len(iterator) == 0:
+			if len(iterator1) == 0:
 				endE = True
 
 			for tweet in iterator1:
